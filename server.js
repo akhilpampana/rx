@@ -5,13 +5,14 @@ import { join } from 'path'
 
 const port = process.argv[3] || 8080
 createServer((req, res) => {
-  const reqUrl = parse(req.url)    
-  const filepath = `./public${reqUrl.pathname}`; console.log(8, reqUrl.pathname, filepath)
+  const reqUrl = parse(req.url)
+  const file = reqUrl.pathname == '/' ? '/index.html' : reqUrl.pathname
+  const filepath = `./public${file}`
   try {
-    if (existsSync(filepath)) { console.log(11)
+    if (existsSync(filepath)) {
       res.writeHead(200, {'Content-Type': filepath.endsWith('js') ? 'application/javascript' : 'text/html'})
       createReadStream(filepath).pipe(res)
-    } else { console.log(14)
+    } else {
       res.writeHead(404, {'Content-Type': 'text/html'});
       return res.end("404 Not Found");
     }
@@ -19,8 +20,6 @@ createServer((req, res) => {
     res.writeHead(500, {'Content-Type': 'text/html'});
     return res.end("500 Server Error");
   }
-
-  //res.end()
 }).listen(port)
 
 console.log(`listening on ${port} ...`)
