@@ -3,7 +3,7 @@ import { parse } from 'url'
 import { createReadStream, existsSync } from 'fs'
 import { join } from 'path'
 
-const port = process.argv[2] ? Number(process.argv[2]) : 8080
+const port = process.argv[3] || 8080
 createServer((req, res) => {
   const reqUrl = parse(req.url)
   const file = reqUrl.pathname == '/' ? '/index.html' : reqUrl.pathname

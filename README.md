@@ -23,9 +23,7 @@ An application benefits from using rx by having:
 
 ## Develop
 
-### System dependencies
-- [Nodejs](https://nodejs.org/) v12+
-- npm v7+
+### Usage
 
 ### Get started
 
