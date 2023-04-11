@@ -3,6 +3,22 @@ import { parse } from 'url'
 import { createReadStream, existsSync } from 'fs'
 import { join } from 'path'
 
+var express = require('express');
+var app = express();
+
+var cors = require('cors');
+var bodyParser = require('body-parser');
+
+//enables cors
+app.use(cors({
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'origin': '*',
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}));
+
+require('./router/index')(app);
 const port = process.argv[3] || 8080
 createServer((req, res) => {
   const reqUrl = parse(req.url)
